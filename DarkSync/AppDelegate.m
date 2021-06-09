@@ -8,6 +8,7 @@
 #import "AppDelegate.h"
 
 static void *const effectiveAppearanceContext = (void *)&effectiveAppearanceContext;
+static NSTimeInterval delay = 0;
 
 bool ProfileIterateCallback (CFDictionaryRef profileInfo, void* context) {
     NSMutableArray *profiles = (__bridge NSMutableArray *)context;
@@ -76,6 +77,29 @@ cleanup:
     if (!(profileURL = appearance.isDarkAppearance ? self.darkProfileURL : self.lightProfileURL)) {
         return;
     }
+    
+    CFErrorRef errorRef;
+    ColorSyncProfileRef profile;
+    if (!(profile = ColorSyncProfileCreateWithURL((__bridge CFURLRef)profileURL, &errorRef))) {
+        NSLog(@"%@", (__bridge NSError *)errorRef);
+        return;
+    }
+    
+    size_t nSamplesPerChannel = 0;
+    NSData *tables;
+    if (!(tables = (__bridge_transfer NSData *)ColorSyncProfileCreateDisplayTransferTablesFromVCGT(profile, &nSamplesPerChannel))) {
+        CFRelease(profile);
+        return;
+    }
+    CFRelease(profile);
+    
+    const CGGammaValue *redTable = tables.bytes;
+    const CGGammaValue *greenTable = redTable + nSamplesPerChannel;
+    const CGGammaValue *blueTable = greenTable + nSamplesPerChannel;
+        
+    if (kCGErrorSuccess != CGSetDisplayTransferByTable(CGMainDisplayID(),(uint32_t)nSamplesPerChannel, redTable, greenTable, blueTable)) {
+        return;
+    }
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -112,6 +136,7 @@ cleanup:
         SEL selector = @selector(interfaceThemeChanged:);
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:selector object:nil];
         [self performSelector:selector withObject:new afterDelay:0.5];
+        delay = 0.5;
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
