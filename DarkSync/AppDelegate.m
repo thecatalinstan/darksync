@@ -10,44 +10,8 @@
 static void *const effectiveAppearanceContext = (void *)&effectiveAppearanceContext;
 static NSTimeInterval delay = 0;
 
-bool ProfileIterateCallback (CFDictionaryRef profileInfo, void* context) {
-    NSMutableArray *profiles = (__bridge NSMutableArray *)context;
-    
-    CFURLRef profileURL;
-    if (!(profileURL = CFDictionaryGetValue(profileInfo, kColorSyncProfileURL)) || CFNullGetTypeID() == CFGetTypeID(profileURL)) {
-        return true;
-    }
-
-    CFStringRef profileClass;
-    if (!(profileClass = CFDictionaryGetValue(profileInfo, kColorSyncProfileClass)) || !CFEqual(profileClass, kColorSyncSigDisplayClass)) {
-        return true;
-    }
-    
-    ColorSyncProfileRef profile;
-    CFDataRef model = NULL;
-        
-    CFErrorRef error;
-    if (!(profile = ColorSyncProfileCreateWithURL(profileURL, &error))) {
-        NSLog(@" *** error: %@", (__bridge NSError *)error);
-        goto cleanup;
-    }
-    
-    if (!(model = ColorSyncProfileCopyTag(profile, CFSTR("mmod")))) {
-        goto cleanup;
-    }
-    
-    [profiles addObject:(__bridge NSURL *)profileURL];
-    
-cleanup:
-    if (profile) {
-        CFRelease(profile);
-    }
-    if (model) {
-        CFRelease(model);
-    }
-    
-    return true;
-}
+void DisplayReconfigurationCallBack(CGDirectDisplayID display, CGDisplayChangeSummaryFlags flags, void *context);
+bool ProfileIterateCallback(CFDictionaryRef profileInfo, void* context);
 
 @interface NSAppearance (DarkSync)
 
@@ -125,9 +89,17 @@ cleanup:
     self.darkProfileURL = profiles[1];
     
     [NSApplication.sharedApplication addObserver:self forKeyPath:@"effectiveAppearance" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:effectiveAppearanceContext];
+    
+    CGError err;
+    if (kCGErrorSuccess != (err = CGDisplayRegisterReconfigurationCallback(DisplayReconfigurationCallBack, (void *)self))) {
+        NSLog(@"CGDisplayRegisterReconfigurationCallback failed. %d\n", err);
+    }
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
+    CGDisplayRemoveReconfigurationCallback(DisplayReconfigurationCallBack, (void *)self);
+    CGRestorePermanentDisplayConfiguration();
+    CGDisplayRestoreColorSyncSettings();
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
@@ -143,3 +115,47 @@ cleanup:
 }
 
 @end
+
+void DisplayReconfigurationCallBack(CGDirectDisplayID display, CGDisplayChangeSummaryFlags flags, void *context) {
+    AppDelegate *delegate = (__bridge AppDelegate *)context;
+    [delegate interfaceThemeChanged:NSApplication.sharedApplication.effectiveAppearance];
+}
+
+bool ProfileIterateCallback (CFDictionaryRef profileInfo, void* context) {
+    NSMutableArray *profiles = (__bridge NSMutableArray *)context;
+    
+    CFURLRef profileURL;
+    if (!(profileURL = CFDictionaryGetValue(profileInfo, kColorSyncProfileURL)) || CFNullGetTypeID() == CFGetTypeID(profileURL)) {
+        return true;
+    }
+
+    CFStringRef profileClass;
+    if (!(profileClass = CFDictionaryGetValue(profileInfo, kColorSyncProfileClass)) || !CFEqual(profileClass, kColorSyncSigDisplayClass)) {
+        return true;
+    }
+    
+    ColorSyncProfileRef profile;
+    CFDataRef model = NULL;
+        
+    CFErrorRef error;
+    if (!(profile = ColorSyncProfileCreateWithURL(profileURL, &error))) {
+        NSLog(@" *** error: %@", (__bridge NSError *)error);
+        goto cleanup;
+    }
+    
+    if (!(model = ColorSyncProfileCopyTag(profile, CFSTR("mmod")))) {
+        goto cleanup;
+    }
+    
+    [profiles addObject:(__bridge NSURL *)profileURL];
+    
+cleanup:
+    if (profile) {
+        CFRelease(profile);
+    }
+    if (model) {
+        CFRelease(model);
+    }
+    
+    return true;
+}
