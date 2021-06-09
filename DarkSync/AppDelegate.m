@@ -6,7 +6,6 @@
 //
 
 #import "AppDelegate.h"
-#import "DarkSyncColorSyncServiceHelper.h"
 
 static void *const effectiveAppearanceContext = (void *)&effectiveAppearanceContext;
 
@@ -75,17 +74,6 @@ cleanup:
 - (void)interfaceThemeChanged:(NSAppearance *)appearance {
     NSURL *profileURL;
     if (!(profileURL = appearance.isDarkAppearance ? self.darkProfileURL : self.lightProfileURL)) {
-        return;
-    }
-    
-    CFUUIDRef displayUUIDRef = CGDisplayCreateUUIDFromDisplayID(CGMainDisplayID());
-    NSUUID *displayUUID = [[NSUUID alloc] initWithUUIDString:CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, displayUUIDRef))];
-    CFRelease(displayUUIDRef);
-    displayUUIDRef = NULL;
-
-    NSError *error;
-    if (![DarkSyncColorSyncServiceHelper.sharedHelper setColorSyncProfile:profileURL display:displayUUID error:&error]) {
-        NSLog(@"%@", error);
         return;
     }
 }
