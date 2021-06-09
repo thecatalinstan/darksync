@@ -51,7 +51,6 @@
     
     if (!ColorSyncDeviceSetCustomProfiles(kColorSyncDisplayDeviceClass, displayUUIDRef, (__bridge CFDictionaryRef)@{
         (__bridge id)kColorSyncDeviceDefaultProfileID: profileURL,
-        
                                                                                                                   })) {
         error = [NSError errorWithDomain:NSPOSIXErrorDomain code:ENXIO userInfo:@{
             NSLocalizedDescriptionKey: @(strerror(ENXIO)),

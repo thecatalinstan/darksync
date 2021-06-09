@@ -49,41 +49,48 @@ cleanup:
     return true;
 }
 
+@interface NSAppearance (DarkSync)
+
+@property (nonatomic, readonly) BOOL isDarkAppearance;
+
+@end
+
+@implementation NSAppearance (DarkSync)
+
+- (BOOL)isDarkAppearance {
+    return [self.name localizedCaseInsensitiveContainsString:@"dark"];
+}
+
+@end
+
 @interface AppDelegate ()
 
-@property (strong) IBOutlet NSWindow *window;
-@property NSURL *darkProfile;
-@property NSURL *lightProfile;
+@property NSURL *darkProfileURL;
+@property NSURL *lightProfileURL;
 
 @end
 
 @implementation AppDelegate
 
 - (void)interfaceThemeChanged:(NSAppearance *)appearance {
-    NSURL *profile;
-    if ([appearance.name localizedCaseInsensitiveContainsString:@"dark"]) {
-        profile = self.darkProfile;
-    } else {
-        profile = self.lightProfile;
-    }
-    
-    if (!profile) {
+    NSURL *profileURL;
+    if (!(profileURL = appearance.isDarkAppearance ? self.darkProfileURL : self.lightProfileURL)) {
         return;
     }
     
-    NSError *error;
     CFUUIDRef displayUUIDRef = CGDisplayCreateUUIDFromDisplayID(CGMainDisplayID());
     NSUUID *displayUUID = [[NSUUID alloc] initWithUUIDString:CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, displayUUIDRef))];
     CFRelease(displayUUIDRef);
     displayUUIDRef = NULL;
-    
-    if (![DarkSyncColorSyncServiceHelper.sharedHelper setColorSyncProfile:profile display:displayUUID error:&error]) {
+
+    NSError *error;
+    if (![DarkSyncColorSyncServiceHelper.sharedHelper setColorSyncProfile:profileURL display:displayUUID error:&error]) {
         NSLog(@"%@", error);
+        return;
     }
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    CFErrorRef error;
     NSMutableArray<NSURL *> *profiles = [NSMutableArray arrayWithCapacity:16];
     NSDictionary *opts;
     if (@available(macOS 11.0, *)) {
@@ -91,6 +98,8 @@ cleanup:
     } else {
         opts = @{};
     }
+
+    CFErrorRef error;
     ColorSyncIterateInstalledProfilesWithOptions(ProfileIterateCallback, NULL, (void *)profiles, (CFDictionaryRef)opts, &error);
     if (error) {
         NSLog(@" *** error: %@", (__bridge NSError *)error);
@@ -100,14 +109,13 @@ cleanup:
     
     NSLog(@" * %@", [profiles valueForKeyPath:@"lastPathComponent"]);
 
-    self.lightProfile = profiles[2];
-    self.darkProfile = profiles[1];
+    self.lightProfileURL = profiles[2];
+    self.darkProfileURL = profiles[1];
     
     [NSApplication.sharedApplication addObserver:self forKeyPath:@"effectiveAppearance" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:effectiveAppearanceContext];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
-    // Insert code here to tear down your application
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
