@@ -11,7 +11,39 @@
 		AD4ABC6D266F9F8500043DC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD4ABC6C266F9F8500043DC3 /* Assets.xcassets */; };
 		AD4ABC70266F9F8500043DC3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD4ABC6E266F9F8500043DC3 /* MainMenu.xib */; };
 		AD4ABC73266F9F8500043DC3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4ABC72266F9F8500043DC3 /* main.m */; };
+		ADCE93A3267005EC00D3DE8E /* DarkSyncColorSyncService.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCE93A2267005EC00D3DE8E /* DarkSyncColorSyncService.m */; };
+		ADCE93A5267005EC00D3DE8E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCE93A4267005EC00D3DE8E /* main.m */; };
+		ADCE93A9267005ED00D3DE8E /* DarkSyncColorSyncService.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = ADCE939E267005EC00D3DE8E /* DarkSyncColorSyncService.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		ADCE93B12670069100D3DE8E /* DarkSyncColorSyncServiceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCE93B02670069100D3DE8E /* DarkSyncColorSyncServiceHelper.m */; };
+		ADCE93B42670099600D3DE8E /* DarkSyncColorSyncServiceConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCE93B32670099600D3DE8E /* DarkSyncColorSyncServiceConnection.m */; };
+		ADCE93B7267009BF00D3DE8E /* DarkSyncColorSyncServiceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCE93B6267009BF00D3DE8E /* DarkSyncColorSyncServiceProvider.m */; };
+		ADCE93BA26702A1C00D3DE8E /* ColorSync.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADCE93B926702A1C00D3DE8E /* ColorSync.framework */; };
+		ADCE93BC26702A2400D3DE8E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADCE93BB26702A2400D3DE8E /* CoreGraphics.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		ADCE93A7267005ED00D3DE8E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AD4ABC5E266F9F8300043DC3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ADCE939D267005EC00D3DE8E;
+			remoteInfo = DarkSyncColorSyncService;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		ADCE93AD267005ED00D3DE8E /* Embed XPC Services */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
+			files = (
+				ADCE93A9267005ED00D3DE8E /* DarkSyncColorSyncService.xpc in Embed XPC Services */,
+			);
+			name = "Embed XPC Services";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		AD4ABC66266F9F8300043DC3 /* DarkSync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DarkSync.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -22,6 +54,21 @@
 		AD4ABC71266F9F8500043DC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD4ABC72266F9F8500043DC3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AD4ABC74266F9F8500043DC3 /* DarkSync.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DarkSync.entitlements; sourceTree = "<group>"; };
+		ADCE939E267005EC00D3DE8E /* DarkSyncColorSyncService.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = DarkSyncColorSyncService.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADCE93A0267005EC00D3DE8E /* DarkSyncColorSyncServiceProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DarkSyncColorSyncServiceProtocol.h; sourceTree = "<group>"; };
+		ADCE93A1267005EC00D3DE8E /* DarkSyncColorSyncService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DarkSyncColorSyncService.h; sourceTree = "<group>"; };
+		ADCE93A2267005EC00D3DE8E /* DarkSyncColorSyncService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DarkSyncColorSyncService.m; sourceTree = "<group>"; };
+		ADCE93A4267005EC00D3DE8E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		ADCE93A6267005EC00D3DE8E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ADCE93AF2670069100D3DE8E /* DarkSyncColorSyncServiceHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DarkSyncColorSyncServiceHelper.h; sourceTree = "<group>"; };
+		ADCE93B02670069100D3DE8E /* DarkSyncColorSyncServiceHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DarkSyncColorSyncServiceHelper.m; sourceTree = "<group>"; };
+		ADCE93B22670099600D3DE8E /* DarkSyncColorSyncServiceConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DarkSyncColorSyncServiceConnection.h; sourceTree = "<group>"; };
+		ADCE93B32670099600D3DE8E /* DarkSyncColorSyncServiceConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DarkSyncColorSyncServiceConnection.m; sourceTree = "<group>"; };
+		ADCE93B5267009BF00D3DE8E /* DarkSyncColorSyncServiceProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DarkSyncColorSyncServiceProvider.h; sourceTree = "<group>"; };
+		ADCE93B6267009BF00D3DE8E /* DarkSyncColorSyncServiceProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DarkSyncColorSyncServiceProvider.m; sourceTree = "<group>"; };
+		ADCE93B926702A1C00D3DE8E /* ColorSync.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ColorSync.framework; path = System/Library/Frameworks/ColorSync.framework; sourceTree = SDKROOT; };
+		ADCE93BB26702A2400D3DE8E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		ADCE93BD2670310B00D3DE8E /* DarkSyncColorSyncService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DarkSyncColorSyncService.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,14 +79,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ADCE939B267005EC00D3DE8E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ADCE93BC26702A2400D3DE8E /* CoreGraphics.framework in Frameworks */,
+				ADCE93BA26702A1C00D3DE8E /* ColorSync.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		AD4ABC5D266F9F8300043DC3 = {
 			isa = PBXGroup;
 			children = (
+				ADCE93AE2670064300D3DE8E /* Shared */,
 				AD4ABC68266F9F8300043DC3 /* DarkSync */,
+				ADCE939F267005EC00D3DE8E /* DarkSyncColorSyncService */,
 				AD4ABC67266F9F8300043DC3 /* Products */,
+				ADCE93B826702A1C00D3DE8E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -47,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				AD4ABC66266F9F8300043DC3 /* DarkSync.app */,
+				ADCE939E267005EC00D3DE8E /* DarkSyncColorSyncService.xpc */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -56,6 +116,12 @@
 			children = (
 				AD4ABC69266F9F8300043DC3 /* AppDelegate.h */,
 				AD4ABC6A266F9F8300043DC3 /* AppDelegate.m */,
+				ADCE93AF2670069100D3DE8E /* DarkSyncColorSyncServiceHelper.h */,
+				ADCE93B02670069100D3DE8E /* DarkSyncColorSyncServiceHelper.m */,
+				ADCE93B5267009BF00D3DE8E /* DarkSyncColorSyncServiceProvider.h */,
+				ADCE93B6267009BF00D3DE8E /* DarkSyncColorSyncServiceProvider.m */,
+				ADCE93B22670099600D3DE8E /* DarkSyncColorSyncServiceConnection.h */,
+				ADCE93B32670099600D3DE8E /* DarkSyncColorSyncServiceConnection.m */,
 				AD4ABC6C266F9F8500043DC3 /* Assets.xcassets */,
 				AD4ABC6E266F9F8500043DC3 /* MainMenu.xib */,
 				AD4ABC71266F9F8500043DC3 /* Info.plist */,
@@ -63,6 +129,35 @@
 				AD4ABC74266F9F8500043DC3 /* DarkSync.entitlements */,
 			);
 			path = DarkSync;
+			sourceTree = "<group>";
+		};
+		ADCE939F267005EC00D3DE8E /* DarkSyncColorSyncService */ = {
+			isa = PBXGroup;
+			children = (
+				ADCE93BD2670310B00D3DE8E /* DarkSyncColorSyncService.entitlements */,
+				ADCE93A1267005EC00D3DE8E /* DarkSyncColorSyncService.h */,
+				ADCE93A2267005EC00D3DE8E /* DarkSyncColorSyncService.m */,
+				ADCE93A4267005EC00D3DE8E /* main.m */,
+				ADCE93A6267005EC00D3DE8E /* Info.plist */,
+			);
+			path = DarkSyncColorSyncService;
+			sourceTree = "<group>";
+		};
+		ADCE93AE2670064300D3DE8E /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				ADCE93A0267005EC00D3DE8E /* DarkSyncColorSyncServiceProtocol.h */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		ADCE93B826702A1C00D3DE8E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ADCE93BB26702A2400D3DE8E /* CoreGraphics.framework */,
+				ADCE93B926702A1C00D3DE8E /* ColorSync.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -75,15 +170,34 @@
 				AD4ABC62266F9F8300043DC3 /* Sources */,
 				AD4ABC63266F9F8300043DC3 /* Frameworks */,
 				AD4ABC64266F9F8300043DC3 /* Resources */,
+				ADCE93AD267005ED00D3DE8E /* Embed XPC Services */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				ADCE93A8267005ED00D3DE8E /* PBXTargetDependency */,
 			);
 			name = DarkSync;
 			productName = DarkSync;
 			productReference = AD4ABC66266F9F8300043DC3 /* DarkSync.app */;
 			productType = "com.apple.product-type.application";
+		};
+		ADCE939D267005EC00D3DE8E /* DarkSyncColorSyncService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ADCE93AA267005ED00D3DE8E /* Build configuration list for PBXNativeTarget "DarkSyncColorSyncService" */;
+			buildPhases = (
+				ADCE939A267005EC00D3DE8E /* Sources */,
+				ADCE939B267005EC00D3DE8E /* Frameworks */,
+				ADCE939C267005EC00D3DE8E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DarkSyncColorSyncService;
+			productName = DarkSyncColorSyncService;
+			productReference = ADCE939E267005EC00D3DE8E /* DarkSyncColorSyncService.xpc */;
+			productType = "com.apple.product-type.xpc-service";
 		};
 /* End PBXNativeTarget section */
 
@@ -94,6 +208,9 @@
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
 					AD4ABC65266F9F8300043DC3 = {
+						CreatedOnToolsVersion = 12.5;
+					};
+					ADCE939D267005EC00D3DE8E = {
 						CreatedOnToolsVersion = 12.5;
 					};
 				};
@@ -112,6 +229,7 @@
 			projectRoot = "";
 			targets = (
 				AD4ABC65266F9F8300043DC3 /* DarkSync */,
+				ADCE939D267005EC00D3DE8E /* DarkSyncColorSyncService */,
 			);
 		};
 /* End PBXProject section */
@@ -126,6 +244,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		ADCE939C267005EC00D3DE8E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -134,11 +259,31 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD4ABC73266F9F8500043DC3 /* main.m in Sources */,
+				ADCE93B12670069100D3DE8E /* DarkSyncColorSyncServiceHelper.m in Sources */,
 				AD4ABC6B266F9F8300043DC3 /* AppDelegate.m in Sources */,
+				ADCE93B42670099600D3DE8E /* DarkSyncColorSyncServiceConnection.m in Sources */,
+				ADCE93B7267009BF00D3DE8E /* DarkSyncColorSyncServiceProvider.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ADCE939A267005EC00D3DE8E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ADCE93A5267005EC00D3DE8E /* main.m in Sources */,
+				ADCE93A3267005EC00D3DE8E /* DarkSyncColorSyncService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		ADCE93A8267005ED00D3DE8E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ADCE939D267005EC00D3DE8E /* DarkSyncColorSyncService */;
+			targetProxy = ADCE93A7267005ED00D3DE8E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		AD4ABC6E266F9F8500043DC3 /* MainMenu.xib */ = {
@@ -207,7 +352,6 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -259,7 +403,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -271,6 +414,7 @@
 				CODE_SIGN_ENTITLEMENTS = DarkSync/DarkSync.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = DarkSync/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -289,6 +433,7 @@
 				CODE_SIGN_ENTITLEMENTS = DarkSync/DarkSync.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = DarkSync/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -296,6 +441,38 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.catalinstan.DarkSync;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		ADCE93AB267005ED00D3DE8E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = DarkSyncColorSyncService/DarkSyncColorSyncService.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = DarkSyncColorSyncService/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.catalinstan.DarkSyncColorSyncService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		ADCE93AC267005ED00D3DE8E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = DarkSyncColorSyncService/DarkSyncColorSyncService.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = DarkSyncColorSyncService/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.catalinstan.DarkSyncColorSyncService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -316,6 +493,15 @@
 			buildConfigurations = (
 				AD4ABC78266F9F8500043DC3 /* Debug */,
 				AD4ABC79266F9F8500043DC3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ADCE93AA267005ED00D3DE8E /* Build configuration list for PBXNativeTarget "DarkSyncColorSyncService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ADCE93AB267005ED00D3DE8E /* Debug */,
+				ADCE93AC267005ED00D3DE8E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

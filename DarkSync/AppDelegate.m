@@ -6,6 +6,7 @@
 //
 
 #import "AppDelegate.h"
+#import "DarkSyncColorSyncServiceHelper.h"
 
 static void *const effectiveAppearanceContext = (void *)&effectiveAppearanceContext;
 
@@ -69,12 +70,16 @@ cleanup:
     if (!profile) {
         return;
     }
- 
-    NSLog(@" * %@", profile.lastPathComponent);
-    NSDictionary *profileInfo = @{
-        (__bridge id)kColorSyncDeviceDefaultProfileID: profile
-    };
-    ColorSyncDeviceSetCustomProfiles(kColorSyncDisplayDeviceClass, CGDisplayCreateUUIDFromDisplayID(CGMainDisplayID()), (__bridge CFDictionaryRef)profileInfo);
+    
+    NSError *error;
+    CFUUIDRef displayUUIDRef = CGDisplayCreateUUIDFromDisplayID(CGMainDisplayID());
+    NSUUID *displayUUID = [[NSUUID alloc] initWithUUIDString:CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, displayUUIDRef))];
+    CFRelease(displayUUIDRef);
+    displayUUIDRef = NULL;
+    
+    if (![DarkSyncColorSyncServiceHelper.sharedHelper setColorSyncProfile:profile display:displayUUID error:&error]) {
+        NSLog(@"%@", error);
+    }
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
