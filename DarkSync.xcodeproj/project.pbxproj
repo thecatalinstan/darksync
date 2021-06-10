@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,7 @@
 		AD4ABC6D266F9F8500043DC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD4ABC6C266F9F8500043DC3 /* Assets.xcassets */; };
 		AD4ABC70266F9F8500043DC3 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD4ABC6E266F9F8500043DC3 /* MainMenu.xib */; };
 		AD4ABC73266F9F8500043DC3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4ABC72266F9F8500043DC3 /* main.m */; };
+		ADC3BEA72672C168005239F9 /* ObjcClassEnum in Frameworks */ = {isa = PBXBuildFile; productRef = ADC3BEA62672C168005239F9 /* ObjcClassEnum */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -44,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADC3BEA72672C168005239F9 /* ObjcClassEnum in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +109,9 @@
 			dependencies = (
 			);
 			name = DarkSync;
+			packageProductDependencies = (
+				ADC3BEA62672C168005239F9 /* ObjcClassEnum */,
+			);
 			productName = DarkSync;
 			productReference = AD4ABC66266F9F8300043DC3 /* DarkSync.app */;
 			productType = "com.apple.product-type.application";
@@ -133,6 +138,9 @@
 				Base,
 			);
 			mainGroup = AD4ABC5D266F9F8300043DC3;
+			packageReferences = (
+				ADC3BEA52672C168005239F9 /* XCRemoteSwiftPackageReference "objc-class-enum" */,
+			);
 			productRefGroup = AD4ABC67266F9F8300043DC3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -347,6 +355,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		ADC3BEA52672C168005239F9 /* XCRemoteSwiftPackageReference "objc-class-enum" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/thecatalinstan/objc-class-enum";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 1.0.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		ADC3BEA62672C168005239F9 /* ObjcClassEnum */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ADC3BEA52672C168005239F9 /* XCRemoteSwiftPackageReference "objc-class-enum" */;
+			productName = ObjcClassEnum;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AD4ABC5E266F9F8300043DC3 /* Project object */;
 }

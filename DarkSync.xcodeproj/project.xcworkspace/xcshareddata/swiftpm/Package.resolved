@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "ObjcClassEnum",
+        "repositoryURL": "https://github.com/thecatalinstan/objc-class-enum",
+        "state": {
+          "branch": null,
+          "revision": "d1180f0391eb65afb01ecc2627451d8853eae8c0",
+          "version": "1.0.3"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
