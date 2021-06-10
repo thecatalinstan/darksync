@@ -32,6 +32,8 @@ bool ProfileIterateCallback(CFDictionaryRef profileInfo, void* context);
 @property NSURL *darkProfileURL;
 @property NSURL *lightProfileURL;
 
+@property (weak) NSURL *activeProfileURL;
+
 @end
 
 @implementation AppDelegate
@@ -42,18 +44,32 @@ bool ProfileIterateCallback(CFDictionaryRef profileInfo, void* context);
         return;
     }
     
+    CGDirectDisplayID displayID = CGMainDisplayID();
+    
+    if(![self applyProfile:profileURL display:displayID]) {
+        return;
+    }
+    
+    self.activeProfileURL = profileURL;
+}
+
+- (BOOL)applyProfile:(NSURL *)profileURL display:(CGDirectDisplayID)displayID {
+    return [self applyProfileGamma:profileURL display:displayID];
+}
+
+- (BOOL)applyProfileGamma:(NSURL *)profileURL display:(CGDirectDisplayID)displayID {
     CFErrorRef errorRef;
     ColorSyncProfileRef profile;
     if (!(profile = ColorSyncProfileCreateWithURL((__bridge CFURLRef)profileURL, &errorRef))) {
         NSLog(@"%@", (__bridge NSError *)errorRef);
-        return;
+        return NO;
     }
     
     size_t nSamplesPerChannel = 0;
     NSData *tables;
     if (!(tables = (__bridge_transfer NSData *)ColorSyncProfileCreateDisplayTransferTablesFromVCGT(profile, &nSamplesPerChannel))) {
         CFRelease(profile);
-        return;
+        return NO;
     }
     CFRelease(profile);
     
@@ -61,9 +77,11 @@ bool ProfileIterateCallback(CFDictionaryRef profileInfo, void* context);
     const CGGammaValue *greenTable = redTable + nSamplesPerChannel;
     const CGGammaValue *blueTable = greenTable + nSamplesPerChannel;
         
-    if (kCGErrorSuccess != CGSetDisplayTransferByTable(CGMainDisplayID(),(uint32_t)nSamplesPerChannel, redTable, greenTable, blueTable)) {
-        return;
+    if (kCGErrorSuccess != CGSetDisplayTransferByTable(displayID,(uint32_t)nSamplesPerChannel, redTable, greenTable, blueTable)) {
+        return NO;
     }
+    
+    return YES;
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
@@ -116,9 +134,9 @@ bool ProfileIterateCallback(CFDictionaryRef profileInfo, void* context);
 
 @end
 
-void DisplayReconfigurationCallBack(CGDirectDisplayID display, CGDisplayChangeSummaryFlags flags, void *context) {
+void DisplayReconfigurationCallBack(CGDirectDisplayID displayID, CGDisplayChangeSummaryFlags flags, void *context) {
     AppDelegate *delegate = (__bridge AppDelegate *)context;
-    [delegate interfaceThemeChanged:NSApplication.sharedApplication.effectiveAppearance];
+    [delegate applyProfile:delegate.activeProfileURL display:displayID];
 }
 
 bool ProfileIterateCallback (CFDictionaryRef profileInfo, void* context) {
