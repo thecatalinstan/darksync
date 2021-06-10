@@ -54,7 +54,43 @@ bool ProfileIterateCallback(CFDictionaryRef profileInfo, void* context);
 }
 
 - (BOOL)applyProfile:(NSURL *)profileURL display:(CGDirectDisplayID)displayID {
-    return [self applyProfileGamma:profileURL display:displayID];
+//    return [self applyProfileGamma:profileURL display:displayID];
+    return [self setCustomProfile:profileURL display:displayID];
+}
+
+- (BOOL)setCustomProfile:(NSURL *)profileURL display:(CGDirectDisplayID)displayID {
+    CFUUIDRef deviceID = NULL;
+    CFMutableDictionaryRef profileInfo = NULL;
+    
+    BOOL result = NO;
+    
+    if (!(deviceID = CGDisplayCreateUUIDFromDisplayID((uint32_t)displayID))) {
+        goto done;
+    }
+    
+    if (!(profileInfo = CFDictionaryCreateMutable(kCFAllocatorDefault, 2, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks))) {
+        goto done;
+    }
+
+    CFDictionarySetValue(profileInfo, kColorSyncDeviceDefaultProfileID, (__bridge CFURLRef)profileURL);
+    CFDictionarySetValue(profileInfo, kColorSyncProfileUserScope, kCFPreferencesCurrentUser);
+
+    if (!ColorSyncDeviceSetCustomProfiles(kColorSyncDisplayDeviceClass, deviceID, profileInfo)) {
+        goto done;
+    }
+    
+    result = YES;
+    
+done:
+    if (deviceID) {
+        CFRelease(deviceID);
+        deviceID = NULL;
+    }
+    if (profileInfo) {
+        CFRelease(profileInfo);
+        profileInfo = NULL;
+    }
+    return result;
 }
 
 - (BOOL)applyProfileGamma:(NSURL *)profileURL display:(CGDirectDisplayID)displayID {
